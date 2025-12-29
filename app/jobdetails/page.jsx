@@ -1,0 +1,778 @@
+// 'use client'
+// import React, { useState, useEffect } from 'react'
+// import { MapPin, Briefcase, Clock, DollarSign, Users, Heart, Share2, Facebook, Twitter, Linkedin, Building2, Code, Palette } from 'lucide-react'
+// import { motion } from 'framer-motion'
+// import Link from 'next/link'
+// import { useRouter, useSearchParams } from 'next/navigation'
+
+// export default function JobDetailsPage() {
+//   const router = useRouter()
+//   const searchParams = useSearchParams()
+//   const jobId = searchParams.get('id')
+//   const [isSaved, setIsSaved] = useState(false)
+
+//   // Mock job data - in real app, fetch based on jobId
+//   const jobData = {
+//     id: jobId || 1,
+//     title: 'Corporate Solutions Executive',
+//     company: 'Microsoft Corporation',
+//     icon: Code,
+//     tags: ['Technology', 'Full-time'],
+//     salary: '120,000 - 160,000',
+//     location: 'New York, USA',
+//     postedTime: '2 hours ago',
+//     description: `Tech Stacks Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
+//     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+//     Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.`,
+    
+//     responsibilities: [
+//       'Lead technical strategy and solutions for enterprise clients',
+//       'Collaborate with cross-functional teams to deliver innovative solutions',
+//       'Manage client relationships and ensure project delivery on time and within budget',
+//       'Conduct technical assessments and provide recommendations for system improvements',
+//       'Mentor junior team members and contribute to team development'
+//     ],
+
+//     skills: [
+//       'Strong leadership and communication skills',
+//       'Experience with cloud technologies and modern software architectures',
+//       'Proven track record in managing enterprise-level projects',
+//       'Technical knowledge of various programming languages',
+//       'Excellent problem-solving abilities and analytical mindset'
+//     ],
+
+//     relatedJobs: [
+//       {
+//         id: 2,
+//         title: 'Internal Creative Coordinator',
+//         company: 'Google LLC',
+//         icon: Palette,
+//         tags: ['Design', 'Full-time'],
+//         salary: '100,000 - 140,000',
+//         location: 'San Francisco, USA',
+//         postedTime: '3 hours ago'
+//       },
+//       {
+//         id: 3,
+//         title: 'District Internet Director',
+//         company: 'Amazon Inc',
+//         icon: Code,
+//         tags: ['Technology', 'Full-time'],
+//         salary: '130,000 - 170,000',
+//         location: 'Seattle, USA',
+//         postedTime: '4 hours ago'
+//       },
+//       {
+//         id: 4,
+//         title: 'Corporate Tactics Facilitator',
+//         company: 'Apple Inc',
+//         icon: Briefcase,
+//         tags: ['Management', 'Full-time'],
+//         salary: '110,000 - 150,000',
+//         location: 'Cupertino, USA',
+//         postedTime: '5 hours ago'
+//       }
+//     ]
+//   }
+
+//   const handleApply = () => {
+//     router.push('/apply')
+//   }
+
+//   const containerVariants = {
+//     hidden: { opacity: 0 },
+//     visible: {
+//       opacity: 1,
+//       transition: {
+//         staggerChildren: 0.1,
+//         delayChildren: 0.2,
+//       }
+//     }
+//   }
+
+//   const itemVariants = {
+//     hidden: { opacity: 0, y: 20 },
+//     visible: {
+//       opacity: 1,
+//       y: 0,
+//       transition: { duration: 0.6 }
+//     }
+//   }
+
+//   const IconComponent = jobData.icon
+
+//   return (
+//     <div className="min-h-screen bg-gray-50">
+//       {/* Header */}
+//       <motion.div 
+//         initial={{ opacity: 0, y: -20 }}
+//         animate={{ opacity: 1, y: 0 }}
+//         className="bg-black text-white py-8 border-b-4 border-teal-600 text-center"
+//       >
+//         <div className="max-w-6xl mx-auto px-6 py-40">
+//           <h1 className="text-7xl font-black">Job Details</h1>
+//         </div>
+//       </motion.div>
+
+//       <div className="max-w-6xl mx-auto px-6 py-12">
+//         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          
+//           {/* Main Content */}
+//           <motion.div 
+//             className="lg:col-span-2 space-y-8"
+//             variants={containerVariants}
+//             initial="hidden"
+//             animate="visible"
+//           >
+//             {/* Job Header */}
+//             <motion.div variants={itemVariants} className="bg-white rounded-lg p-8 shadow-sm">
+//               <div className="flex items-start justify-between mb-4">
+//                 <div className="flex gap-4">
+//                   <div className="bg-teal-100 p-4 rounded-lg h-fit">
+//                     <IconComponent className="w-8 h-8 text-teal-600" strokeWidth={2.5} />
+//                   </div>
+//                   <div>
+//                     <h2 className="text-3xl font-bold text-gray-900 mb-2">{jobData.title}</h2>
+//                     <p className="text-gray-600 mb-4">{jobData.company}</p>
+//                     <div className="flex flex-wrap gap-4 text-sm">
+//                       {jobData.tags.map((tag, idx) => (
+//                         <span key={idx} className="inline-flex items-center gap-1 bg-gray-100 text-gray-700 px-3 py-1 rounded-full">
+//                           {idx === 0 ? <Briefcase className="w-3 h-3" /> : <Clock className="w-3 h-3" />}
+//                           {tag}
+//                         </span>
+//                       ))}
+//                       <span className="flex items-center gap-1 text-gray-600">
+//                         <MapPin className="w-4 h-4 text-teal-600" />
+//                         {jobData.location}
+//                       </span>
+//                     </div>
+//                   </div>
+//                 </div>
+//                 <motion.button
+//                   whileHover={{ scale: 1.1 }}
+//                   whileTap={{ scale: 0.95 }}
+//                   onClick={() => setIsSaved(!isSaved)}
+//                   className={`p-3 rounded-lg transition-colors ${
+//                     isSaved
+//                       ? 'bg-red-100 text-red-600'
+//                       : 'bg-gray-100 text-gray-600 hover:bg-red-50'
+//                   }`}
+//                 >
+//                   <Heart className="w-6 h-6" fill={isSaved ? 'currentColor' : 'none'} />
+//                 </motion.button>
+//               </div>
+//             </motion.div>
+
+//             {/* Overview */}
+//             <motion.div variants={itemVariants} className="bg-white rounded-lg p-8 shadow-sm">
+//               <h3 className="text-2xl font-bold text-gray-900 mb-4">Overview</h3>
+//               <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8">
+//                 <div className="text-center">
+//                   <p className="text-2xl font-bold text-teal-600">{jobData.salary}</p>
+//                   <p className="text-sm text-gray-600 mt-1">Salary</p>
+//                 </div>
+//                 <div className="text-center">
+//                   <p className="text-2xl font-bold text-teal-600">Full-Time</p>
+//                   <p className="text-sm text-gray-600 mt-1">Job Type</p>
+//                 </div>
+//                 <div className="text-center">
+//                   <p className="text-2xl font-bold text-teal-600">Experience</p>
+//                   <p className="text-sm text-gray-600 mt-1">2+ Years</p>
+//                 </div>
+//                 <div className="text-center">
+//                   <p className="text-2xl font-bold text-teal-600">Deadline</p>
+//                   <p className="text-sm text-gray-600 mt-1">30 Dec, 2024</p>
+//                 </div>
+//               </div>
+//             </motion.div>
+
+//             {/* Job Description */}
+//             <motion.div variants={itemVariants} className="bg-white rounded-lg p-8 shadow-sm">
+//               <h3 className="text-2xl font-bold text-gray-900 mb-4">Job Description</h3>
+//               <p className="text-gray-600 leading-relaxed">{jobData.description}</p>
+//             </motion.div>
+
+//             {/* Key Responsibilities */}
+//             <motion.div variants={itemVariants} className="bg-white rounded-lg p-8 shadow-sm">
+//               <h3 className="text-2xl font-bold text-gray-900 mb-6">Key Responsibilities</h3>
+//               <ul className="space-y-3">
+//                 {jobData.responsibilities.map((resp, idx) => (
+//                   <li key={idx} className="flex gap-3 text-gray-600">
+//                     <span className="text-teal-600 font-bold mt-1">•</span>
+//                     <span>{resp}</span>
+//                   </li>
+//                 ))}
+//               </ul>
+//             </motion.div>
+
+//             {/* Professional Skills */}
+//             <motion.div variants={itemVariants} className="bg-white rounded-lg p-8 shadow-sm">
+//               <h3 className="text-2xl font-bold text-gray-900 mb-6">Professional Skills</h3>
+//               <ul className="space-y-3">
+//                 {jobData.skills.map((skill, idx) => (
+//                   <li key={idx} className="flex gap-3 text-gray-600">
+//                     <span className="text-teal-600 font-bold mt-1">•</span>
+//                     <span>{skill}</span>
+//                   </li>
+//                 ))}
+//               </ul>
+//             </motion.div>
+
+//             {/* Tags */}
+//             <motion.div variants={itemVariants} className="bg-white rounded-lg p-8 shadow-sm">
+//               <h3 className="text-xl font-bold text-gray-900 mb-4">Tags</h3>
+//               <div className="flex flex-wrap gap-2">
+//                 {['Designer', 'Team Lead', 'Project', 'Figma', 'Prototyping'].map((tag) => (
+//                   <span key={tag} className="bg-teal-100 text-teal-700 px-4 py-2 rounded-full text-sm font-medium">
+//                     {tag}
+//                   </span>
+//                 ))}
+//               </div>
+//             </motion.div>
+
+//             {/* Share */}
+//             <motion.div variants={itemVariants} className="bg-white rounded-lg p-8 shadow-sm">
+//               <h3 className="text-xl font-bold text-gray-900 mb-4">Share Job</h3>
+//               <div className="flex gap-3">
+//                 <button className="p-3 bg-gray-100 text-gray-600 rounded-lg hover:bg-gray-200 transition-colors">
+//                   <Facebook className="w-5 h-5" />
+//                 </button>
+//                 <button className="p-3 bg-gray-100 text-gray-600 rounded-lg hover:bg-gray-200 transition-colors">
+//                   <Twitter className="w-5 h-5" />
+//                 </button>
+//                 <button className="p-3 bg-gray-100 text-gray-600 rounded-lg hover:bg-gray-200 transition-colors">
+//                   <Linkedin className="w-5 h-5" />
+//                 </button>
+//               </div>
+//             </motion.div>
+
+//             {/* Related Jobs */}
+//             <motion.div variants={itemVariants} className="bg-white rounded-lg p-8 shadow-sm">
+//               <h3 className="text-2xl font-bold text-gray-900 mb-6">Related Jobs</h3>
+//               <p className="text-gray-600 text-sm mb-6">Based on your profile and interests in similar roles</p>
+//               <div className="space-y-4">
+//                 {jobData.relatedJobs.map((job) => {
+//                   const JobIcon = job.icon
+//                   return (
+//                     <motion.div
+//                       key={job.id}
+//                       whileHover={{ scale: 1.01 }}
+//                       className="p-4 border border-gray-200 rounded-lg hover:border-teal-600 transition-colors"
+//                     >
+//                       <div className="flex items-start justify-between">
+//                         <div className="flex gap-3 flex-1">
+//                           <JobIcon className="w-5 h-5 text-teal-600 mt-1" />
+//                           <div>
+//                             <h4 className="font-bold text-gray-900">{job.title}</h4>
+//                             <p className="text-sm text-gray-600">{job.company}</p>
+//                             <div className="flex gap-2 mt-2 flex-wrap">
+//                               {job.tags.map((tag, idx) => (
+//                                 <span key={idx} className="text-xs bg-gray-100 text-gray-700 px-2 py-1 rounded">
+//                                   {tag}
+//                                 </span>
+//                               ))}
+//                             </div>
+//                           </div>
+//                         </div>
+//                         <Link href={`/jobdetails?id=${job.id}`}>
+//                           <motion.button
+//                             whileHover={{ scale: 1.05 }}
+//                             whileTap={{ scale: 0.95 }}
+//                             className="bg-teal-600 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded-lg text-sm whitespace-nowrap"
+//                           >
+//                             View Job
+//                           </motion.button>
+//                         </Link>
+//                       </div>
+//                     </motion.div>
+//                   )
+//                 })}
+//               </div>
+//             </motion.div>
+//           </motion.div>
+
+//           {/* Sidebar */}
+//           <motion.div 
+//             initial={{ opacity: 0, x: 20 }}
+//             animate={{ opacity: 1, x: 0 }}
+//             className="lg:col-span-1 space-y-6"
+//           >
+//             {/* Apply Card */}
+//             <div className="bg-white rounded-lg p-6 shadow-sm sticky top-20 space-y-4">
+//               <motion.button
+//                 whileHover={{ scale: 1.05 }}
+//                 whileTap={{ scale: 0.95 }}
+//                 onClick={handleApply}
+//                 className="w-full bg-teal-600 hover:bg-teal-700 text-white font-bold py-3 rounded-lg transition-colors"
+//               >
+//                 Apply Job
+//               </motion.button>
+              
+//               <div className="border-t border-gray-200 pt-4">
+//                 <h4 className="font-bold text-gray-900 mb-4">Job Overview</h4>
+//                 <div className="space-y-4">
+//                   <div>
+//                     <p className="text-xs text-gray-600 uppercase tracking-wide font-semibold">Salary</p>
+//                     <p className="text-lg font-bold text-gray-900 mt-1">{jobData.salary}</p>
+//                   </div>
+//                   <div>
+//                     <p className="text-xs text-gray-600 uppercase tracking-wide font-semibold">Job Type</p>
+//                     <p className="text-lg font-bold text-gray-900 mt-1">Full-Time</p>
+//                   </div>
+//                   <div>
+//                     <p className="text-xs text-gray-600 uppercase tracking-wide font-semibold">Experience</p>
+//                     <p className="text-lg font-bold text-gray-900 mt-1">2+ Years</p>
+//                   </div>
+//                   <div>
+//                     <p className="text-xs text-gray-600 uppercase tracking-wide font-semibold">Deadline</p>
+//                     <p className="text-lg font-bold text-gray-900 mt-1">30 Dec, 2024</p>
+//                   </div>
+//                 </div>
+//               </div>
+
+//               <div className="border-t border-gray-200 pt-4">
+//                 <h4 className="font-bold text-gray-900 mb-4">Company</h4>
+//                 <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
+//                   <div className="bg-teal-100 p-2 rounded">
+//                     <Building2 className="w-5 h-5 text-teal-600" />
+//                   </div>
+//                   <div>
+//                     <p className="font-bold text-gray-900 text-sm">{jobData.company}</p>
+//                     <p className="text-xs text-gray-600">Tech Company</p>
+//                   </div>
+//                 </div>
+//               </div>
+
+//               <div className="border-t border-gray-200 pt-4">
+//                 <h4 className="font-bold text-gray-900 mb-4">Location</h4>
+//                 <div className="flex items-center gap-2 text-gray-600">
+//                   <MapPin className="w-5 h-5 text-teal-600" />
+//                   <span className="text-sm">{jobData.location}</span>
+//                 </div>
+//               </div>
+//             </div>
+//           </motion.div>
+//         </div>
+//       </div>
+//     </div>
+//   )
+// }
+
+
+
+'use client'
+import React, { useState, useEffect } from 'react'
+import { MapPin, Briefcase, Clock, DollarSign, Users, Heart, Share2, Facebook, Twitter, Linkedin, Building2, Code, Palette } from 'lucide-react'
+import { motion } from 'framer-motion'
+import Link from 'next/link'
+import { useRouter, useSearchParams } from 'next/navigation'
+import { doc, getDoc, collection, query, where, getDocs, limit } from 'firebase/firestore'
+import { db } from '@/firebase/firebaseConfig'
+
+export default function JobDetailsPage() {
+  const router = useRouter()
+  const searchParams = useSearchParams()
+  const jobId = searchParams.get('id')
+  
+  const [isSaved, setIsSaved] = useState(false)
+  const [jobData, setJobData] = useState(null)
+  const [relatedJobs, setRelatedJobs] = useState([])
+  const [loading, setLoading] = useState(true)
+
+  // Fetch job details from Firebase
+  useEffect(() => {
+    const fetchJobDetails = async () => {
+      if (!jobId) {
+        router.push('/jobs')
+        return
+      }
+
+      try {
+        setLoading(true)
+        
+        // Fetch main job
+        const jobDoc = await getDoc(doc(db, 'jobs', jobId))
+        
+        if (jobDoc.exists()) {
+          const job = { id: jobDoc.id, ...jobDoc.data() }
+          setJobData(job)
+
+          // Fetch related jobs (same location or tags)
+          const relatedQuery = query(
+            collection(db, 'jobs'),
+            where('location', '==', job.location),
+            limit(4)
+          )
+          const relatedSnap = await getDocs(relatedQuery)
+          const related = relatedSnap.docs
+            .map(doc => ({ id: doc.id, ...doc.data() }))
+            .filter(j => j.id !== jobId) // Exclude current job
+            .slice(0, 3) // Limit to 3
+          
+          setRelatedJobs(related)
+        } else {
+          alert('Job not found!')
+          router.push('/jobs')
+        }
+      } catch (error) {
+        console.error('Error fetching job:', error)
+        alert('Error loading job details')
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchJobDetails()
+  }, [jobId, router])
+
+  const handleApply = () => {
+    router.push(`/apply?jobId=${jobId}`)
+  }
+
+  // Calculate time ago
+  const getTimeAgo = (postedAt) => {
+    if (!postedAt) return 'Recently'
+    const now = new Date()
+    const posted = new Date(postedAt)
+    const diffMs = now - posted
+    const diffMins = Math.floor(diffMs / 60000)
+    const diffHours = Math.floor(diffMs / 3600000)
+    const diffDays = Math.floor(diffMs / 86400000)
+
+    if (diffMins < 60) return `${diffMins} min ago`
+    if (diffHours < 24) return `${diffHours} hour${diffHours > 1 ? 's' : ''} ago`
+    return `${diffDays} day${diffDays > 1 ? 's' : ''} ago`
+  }
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.2,
+      }
+    }
+  }
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.6 }
+    }
+  }
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-teal-600 mx-auto mb-4"></div>
+          <p className="text-gray-600">Loading job details...</p>
+        </div>
+      </div>
+    )
+  }
+
+  if (!jobData) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <p className="text-gray-600">Job not found</p>
+          <Link href="/jobs">
+            <button className="mt-4 px-6 py-2 bg-teal-600 text-white rounded-lg">
+              Back to Jobs
+            </button>
+          </Link>
+        </div>
+      </div>
+    )
+  }
+
+  return (
+    <div className="min-h-screen bg-gray-50">
+      {/* Header */}
+      <motion.div 
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="bg-black text-white py-8 border-b-4 border-teal-600 text-center"
+      >
+        <div className="max-w-6xl mx-auto px-6 py-40">
+          <h1 className="text-7xl font-black">Job Details</h1>
+        </div>
+      </motion.div>
+
+      <div className="max-w-6xl mx-auto px-6 py-12">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          
+          {/* Main Content */}
+          <motion.div 
+            className="lg:col-span-2 space-y-8"
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+          >
+            {/* Job Header */}
+            <motion.div variants={itemVariants} className="bg-white rounded-lg p-8 shadow-sm">
+              <div className="flex items-start justify-between mb-4">
+                <div className="flex gap-4">
+                  {/* Company Logo */}
+                  <div className="bg-teal-100 p-4 rounded-lg h-fit">
+                    {jobData.companyLogo ? (
+                      <img 
+                        src={jobData.companyLogo} 
+                        alt={jobData.companyName}
+                        className="w-16 h-16 rounded object-cover"
+                      />
+                    ) : (
+                      <Building2 className="w-16 h-16 text-teal-600" strokeWidth={2} />
+                    )}
+                  </div>
+                  <div>
+                    <h2 className="text-3xl font-bold text-gray-900 mb-2">{jobData.title}</h2>
+                    <p className="text-gray-600 mb-4">{jobData.companyName || 'Company'}</p>
+                    <div className="flex flex-wrap gap-4 text-sm">
+                      {jobData.jobType && (
+                        <span className="inline-flex items-center gap-1 bg-gray-100 text-gray-700 px-3 py-1 rounded-full">
+                          <Clock className="w-3 h-3" />
+                          {jobData.jobType}
+                        </span>
+                      )}
+                      {jobData.location && (
+                        <span className="flex items-center gap-1 text-gray-600">
+                          <MapPin className="w-4 h-4 text-teal-600" />
+                          {jobData.location}
+                        </span>
+                      )}
+                      <span className="text-gray-500 text-xs">
+                        Posted {getTimeAgo(jobData.postedAt)}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <motion.button
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => setIsSaved(!isSaved)}
+                  className={`p-3 rounded-lg transition-colors ${
+                    isSaved
+                      ? 'bg-red-100 text-red-600'
+                      : 'bg-gray-100 text-gray-600 hover:bg-red-50'
+                  }`}
+                >
+                  <Heart className="w-6 h-6" fill={isSaved ? 'currentColor' : 'none'} />
+                </motion.button>
+              </div>
+            </motion.div>
+
+            {/* Overview */}
+            <motion.div variants={itemVariants} className="bg-white rounded-lg p-8 shadow-sm">
+              <h3 className="text-2xl font-bold text-gray-900 mb-4">Overview</h3>
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-6 mb-8">
+                {jobData.salary && (
+                  <div className="text-center">
+                    <p className="text-2xl font-bold text-teal-600">{jobData.salary}</p>
+                    <p className="text-sm text-gray-600 mt-1">Salary</p>
+                  </div>
+                )}
+                {jobData.jobType && (
+                  <div className="text-center">
+                    <p className="text-2xl font-bold text-teal-600">{jobData.jobType}</p>
+                    <p className="text-sm text-gray-600 mt-1">Job Type</p>
+                  </div>
+                )}
+                {jobData.location && (
+                  <div className="text-center">
+                    <p className="text-2xl font-bold text-teal-600">{jobData.location}</p>
+                    <p className="text-sm text-gray-600 mt-1">Location</p>
+                  </div>
+                )}
+              </div>
+            </motion.div>
+
+            {/* Job Description */}
+            {jobData.description && (
+              <motion.div variants={itemVariants} className="bg-white rounded-lg p-8 shadow-sm">
+                <h3 className="text-2xl font-bold text-gray-900 mb-4">Job Description</h3>
+                <p className="text-gray-600 leading-relaxed whitespace-pre-line">{jobData.description}</p>
+              </motion.div>
+            )}
+
+            {/* Tags */}
+            {jobData.tags && jobData.tags.length > 0 && (
+              <motion.div variants={itemVariants} className="bg-white rounded-lg p-8 shadow-sm">
+                <h3 className="text-xl font-bold text-gray-900 mb-4">Skills & Tags</h3>
+                <div className="flex flex-wrap gap-2">
+                  {jobData.tags.map((tag, idx) => (
+                    <span key={idx} className="bg-teal-100 text-teal-700 px-4 py-2 rounded-full text-sm font-medium">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </motion.div>
+            )}
+
+            {/* Share */}
+            <motion.div variants={itemVariants} className="bg-white rounded-lg p-8 shadow-sm">
+              <h3 className="text-xl font-bold text-gray-900 mb-4">Share Job</h3>
+              <div className="flex gap-3">
+                <button 
+                  onClick={() => window.open(`https://facebook.com/sharer/sharer.php?u=${window.location.href}`, '_blank')}
+                  className="p-3 bg-blue-100 text-blue-600 rounded-lg hover:bg-blue-200 transition-colors"
+                >
+                  <Facebook className="w-5 h-5" />
+                </button>
+                <button 
+                  onClick={() => window.open(`https://twitter.com/intent/tweet?url=${window.location.href}&text=${jobData.title}`, '_blank')}
+                  className="p-3 bg-sky-100 text-sky-600 rounded-lg hover:bg-sky-200 transition-colors"
+                >
+                  <Twitter className="w-5 h-5" />
+                </button>
+                <button 
+                  onClick={() => window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${window.location.href}`, '_blank')}
+                  className="p-3 bg-blue-100 text-blue-700 rounded-lg hover:bg-blue-200 transition-colors"
+                >
+                  <Linkedin className="w-5 h-5" />
+                </button>
+              </div>
+            </motion.div>
+
+            {/* Related Jobs */}
+            {relatedJobs.length > 0 && (
+              <motion.div variants={itemVariants} className="bg-white rounded-lg p-8 shadow-sm">
+                <h3 className="text-2xl font-bold text-gray-900 mb-6">Related Jobs</h3>
+                <p className="text-gray-600 text-sm mb-6">Jobs in the same location or similar categories</p>
+                <div className="space-y-4">
+                  {relatedJobs.map((job) => (
+                    <motion.div
+                      key={job.id}
+                      whileHover={{ scale: 1.01 }}
+                      className="p-4 border border-gray-200 rounded-lg hover:border-teal-600 transition-colors"
+                    >
+                      <div className="flex items-start justify-between">
+                        <div className="flex gap-3 flex-1">
+                          {job.companyLogo ? (
+                            <img 
+                              src={job.companyLogo} 
+                              alt={job.companyName}
+                              className="w-12 h-12 rounded object-cover"
+                            />
+                          ) : (
+                            <Building2 className="w-12 h-12 text-teal-600 bg-teal-50 p-2 rounded" />
+                          )}
+                          <div>
+                            <h4 className="font-bold text-gray-900">{job.title}</h4>
+                            <p className="text-sm text-gray-600">{job.companyName || 'Company'}</p>
+                            <div className="flex gap-2 mt-2 flex-wrap">
+                              {job.jobType && (
+                                <span className="text-xs bg-gray-100 text-gray-700 px-2 py-1 rounded">
+                                  {job.jobType}
+                                </span>
+                              )}
+                              {job.location && (
+                                <span className="text-xs bg-gray-100 text-gray-700 px-2 py-1 rounded flex items-center gap-1">
+                                  <MapPin className="w-3 h-3" />
+                                  {job.location}
+                                </span>
+                              )}
+                            </div>
+                          </div>
+                        </div>
+                        <Link href={`/jobdetails?id=${job.id}`}>
+                          <motion.button
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                            className="bg-teal-600 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded-lg text-sm whitespace-nowrap"
+                          >
+                            View Job
+                          </motion.button>
+                        </Link>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+              </motion.div>
+            )}
+          </motion.div>
+
+          {/* Sidebar */}
+          <motion.div 
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            className="lg:col-span-1 space-y-6"
+          >
+            {/* Apply Card */}
+            <div className="bg-white rounded-lg p-6 shadow-sm sticky top-20 space-y-4">
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={handleApply}
+                className="w-full bg-teal-600 hover:bg-teal-700 text-white font-bold py-3 rounded-lg transition-colors"
+              >
+                Apply Now
+              </motion.button>
+              
+              <div className="border-t border-gray-200 pt-4">
+                <h4 className="font-bold text-gray-900 mb-4">Job Overview</h4>
+                <div className="space-y-4">
+                  {jobData.salary && (
+                    <div>
+                      <p className="text-xs text-gray-600 uppercase tracking-wide font-semibold">Salary</p>
+                      <p className="text-lg font-bold text-gray-900 mt-1">{jobData.salary}</p>
+                    </div>
+                  )}
+                  {jobData.jobType && (
+                    <div>
+                      <p className="text-xs text-gray-600 uppercase tracking-wide font-semibold">Job Type</p>
+                      <p className="text-lg font-bold text-gray-900 mt-1">{jobData.jobType}</p>
+                    </div>
+                  )}
+                  {jobData.postedAt && (
+                    <div>
+                      <p className="text-xs text-gray-600 uppercase tracking-wide font-semibold">Posted</p>
+                      <p className="text-lg font-bold text-gray-900 mt-1">{getTimeAgo(jobData.postedAt)}</p>
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              {/* Company Info */}
+              <div className="border-t border-gray-200 pt-4">
+                <h4 className="font-bold text-gray-900 mb-4">Company</h4>
+                <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
+                  {jobData.companyLogo ? (
+                    <img 
+                      src={jobData.companyLogo} 
+                      alt={jobData.companyName}
+                      className="w-12 h-12 rounded object-cover"
+                    />
+                  ) : (
+                    <div className="bg-teal-100 p-2 rounded">
+                      <Building2 className="w-8 h-8 text-teal-600" />
+                    </div>
+                  )}
+                  <div>
+                    <p className="font-bold text-gray-900 text-sm">{jobData.companyName || 'Company'}</p>
+                    <p className="text-xs text-gray-600">Employer</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Location */}
+              {jobData.location && (
+                <div className="border-t border-gray-200 pt-4">
+                  <h4 className="font-bold text-gray-900 mb-4">Location</h4>
+                  <div className="flex items-center gap-2 text-gray-600">
+                    <MapPin className="w-5 h-5 text-teal-600" />
+                    <span className="text-sm">{jobData.location}</span>
+                  </div>
+                </div>
+              )}
+            </div>
+          </motion.div>
+        </div>
+      </div>
+    </div>
+  )
+}
