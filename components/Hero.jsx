@@ -229,8 +229,13 @@ const allLocations = [
   }
 
   return (
-    <>
-      <section className="relative z-20 min-h-[600px] flex items-center justify-center py-40">
+    
+<section
+  className="relative z-20 min-h-[600px] flex items-center justify-center py-40 bg-cover bg-center"
+  style={{ backgroundImage: "url('/image.png')" }}
+>
+
+    <section className="relative z-20 min-h-[600px] flex items-center justify-center py-40">
 
         {/* Content */}
         <div className="max-w-6xl mx-auto px-6 w-full">
@@ -435,6 +440,7 @@ const allLocations = [
 
         </div>
       </section>
-    </>
+      </section>
+  
   )
 }
