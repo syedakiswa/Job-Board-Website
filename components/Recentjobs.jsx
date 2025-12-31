@@ -1,3 +1,4 @@
+'use client'
 import React, { useState } from 'react'
 import { MapPin, Briefcase, Clock, Heart, Share2, Zap, Users, TrendingUp, Code, Palette, BarChart3 } from 'lucide-react'
 import { motion } from 'framer-motion'
